@@ -18,7 +18,6 @@ export default (props) => {
     setOperation('');
     setValue('0');
     setHistory('');
-    setClear(false);
   };
 
   const calc = (op) => {
@@ -38,24 +37,26 @@ export default (props) => {
       default:
         break;
     }
-    setHistory(`${memory} ${operation} ${value}`);
+
+    setHistory(`${history ? history : memory} ${operation} ${value}`);
   };
 
   const addOperation = (newOp) => {
+    const execOperation = memory !== null && operation && (newOp === '=' || !clear);
+    const saveMemory = memory === null && value;
+    const clearValue = operation && newOp !== '=' && operation !== newOp;
+
     if (!value) return;
 
-    if (memory !== null) {
-      if (operation && (operation === newOp || newOp === '=' || !clear)) calc(operation);
-    } else {
-      setMemory(parseFloat(value));
-    }
-    if (newOp !== '=') setOperation(newOp);
+    if (execOperation) calc(operation);
+    if (saveMemory) setMemory(parseFloat(value));
+    if (clearValue) setValue('0');
+    if (newOp !== '=' && operation !== newOp) setOperation(newOp);
     setClear(true);
   };
 
   const addDigit = (dig) => {
     if (dig === '.' && value.includes('.')) return;
-
     if (value === '0' || clear) {
       setValue(dig);
       setClear(false);
