@@ -1,12 +1,21 @@
 .display {
   grid-column: span 4;
   background-color: #0004;
-
+  overflow: hidden;
+}
+.history {
+  height: 16px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8em;
+  text-align: left;
+  padding: 5px 10px 0px 5px;
+}
+.value {
+  height: 49px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px;
+  padding: 5px 10px 5px 5px;
   font-size: 2.1em;
-
-  overflow: hidden;
 }
